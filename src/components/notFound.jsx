@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { mountPoint } from "../config/path";
 
 const NotFound = () => {
   return (
@@ -8,8 +9,10 @@ const NotFound = () => {
         <div className="row justify-content-center">
           <div className="col-md-12 text-center">
             <span className="display-1 d-block">404</span>
-            <div className="mb-4 lead">The page you are looking for was not found.</div>
-            <Link to="/" className="btn btn-link">
+            <div className="mb-4 lead">
+              The page you are looking for was not found.
+            </div>
+            <Link to={mountPoint} className="btn btn-link">
               Back to Home
             </Link>
           </div>
