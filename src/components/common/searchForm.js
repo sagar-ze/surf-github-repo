@@ -1,16 +1,17 @@
 import React from "react";
 import SearchBox from "./searchBox";
 
-const SearchForm = ({ label, placeholder }) => {
+const SearchForm = ({ label, placeholder, onSearch }) => {
   const [query, setQuery] = React.useState("");
+
+  const handleQueryChange = (value) => setQuery(value);
 
   const validate = () => (query ? 0 : 1);
 
   const handleQuerySubmit = (e) => {
     e.preventDefault();
+    onSearch(query);
   };
-
-  const handleQueryChange = (query) => setQuery(query);
 
   return (
     <form className="form-inline" onSubmit={handleQuerySubmit}>
