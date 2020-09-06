@@ -10,7 +10,7 @@ import {
 import moment from "moment";
 const Card = ({ item }) => {
   const lastUpdated = moment(item.updated_at).startOf("hour").fromNow();
-  console.log(item);
+  // console.log(item);
   return (
     <div className="card shadow">
       <div className="card-body">

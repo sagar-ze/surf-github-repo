@@ -16,8 +16,10 @@ const SearchResult = () => {
   const [sort, setSort] = React.useState("match");
   const [order, setOrder] = React.useState("desc");
   const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+  const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [error, setError] = React.useState("");
+
+  const query = getQueryParams(location).q;
 
   React.useEffect(() => {
     async function fetchRepo() {
@@ -35,20 +37,23 @@ const SearchResult = () => {
     fetchRepo();
   }, [location]);
 
+  const handlePageChange = (currPage) => {
+    setPage(currPage);
+    history.push(repoSearch.param(query, currPage, rowsPerPage, sort, order));
+  };
+
   const handleSortOptionsSelect = ({ target }) => {
     const result = target.value.split(" ");
     const sortBy = result[0];
     const orderBy = result[1];
-    const query = getQueryParams(location).q;
     setSort(sortBy);
     setOrder(orderBy);
     history.push(repoSearch.param(query, page, rowsPerPage, sortBy, orderBy));
   };
 
-  const handlePageChange = (currPage) => {
-    setPage(currPage);
-    const query = getQueryParams(location).q;
-    history.push(repoSearch.param(query, currPage, rowsPerPage, sort, order));
+  const handleRowPerPageSelect = ({ target }) => {
+    setRowsPerPage(target.value);
+    history.push(repoSearch.param(query, page, target.value, sort, order));
   };
 
   return (
@@ -61,6 +66,8 @@ const SearchResult = () => {
         <>
           <SearchResultToolbar
             onChange={handleSortOptionsSelect}
+            onRowPerPageSelect={handleRowPerPageSelect}
+            rowPerPage={rowsPerPage}
             order={order}
             sort={sort}
             repo={repo}
