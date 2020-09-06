@@ -1,14 +1,19 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import SearchForm from "./common/searchForm";
 import { mountPoint, repoSearch } from "../config/pathname";
+import { getQueryParams } from "../utils/searchQuery";
 
 const Navbar = () => {
   const history = useHistory();
+  const location = useLocation();
 
   const handleSearch = async (query) => {
-    history.push(repoSearch.param(query, 1, 25, "", ""));
+    const page = 1;
+    const { per_page, sort, order } = getQueryParams(location);
+    history.push(repoSearch.param(query, page, per_page, sort, order));
   };
+
   return (
     <nav className="navbar navbar-light bg-light">
       <Link to={mountPoint} className="navbar-brand font-weight-bold">
