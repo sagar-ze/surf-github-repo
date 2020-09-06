@@ -34,21 +34,13 @@ const SearchResult = () => {
   }, [location]);
 
   const handleSortOptionsSelect = ({ target }) => {
-    const sortBy = target.value;
-    const orderBy = sortBy === "match" ? "" : sortBy;
+    const result = target.value.split(" ");
+    const sortBy = result[0];
+    const orderBy = result[1];
     const query = getQueryParams(location).q;
-    setSort(sortBy);
-    history.push(
-      repoSearch.param(query, page, rowsPerPage, target.value, orderBy)
-    );
-  };
-
-  const handleOrderChange = ({ target }) => {
-    setOrder(target.value);
-    const query = getQueryParams(location).q;
-    history.push(
-      repoSearch.param(query, page, rowsPerPage, sort, target.value)
-    );
+    setSort(result[0]);
+    setOrder(result[1]);
+    history.push(repoSearch.param(query, page, rowsPerPage, sortBy, orderBy));
   };
 
   return (
@@ -61,7 +53,6 @@ const SearchResult = () => {
         <>
           <SearchResultToolbar
             onChange={handleSortOptionsSelect}
-            onOrderChange={handleOrderChange}
             order={order}
             sort={sort}
             repo={repo}

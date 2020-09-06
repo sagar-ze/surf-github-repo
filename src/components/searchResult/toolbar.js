@@ -2,17 +2,7 @@ import React from "react";
 import Select from "../common/select";
 import { getSortOptions } from "../../services/sortOptions";
 
-const orderArr = [
-  { id: "asc", label: "Asc" },
-  { id: "desc", label: "Desc" },
-];
-const SearchResultToolbar = ({
-  repo,
-  onChange,
-  onOrderChange,
-  order,
-  sort,
-}) => {
+const SearchResultToolbar = ({ repo, onChange, order, sort }) => {
   return (
     <div className="row mt-3">
       {repo?.total_count ? (
@@ -23,24 +13,12 @@ const SearchResultToolbar = ({
           </h4>
           <div className="ml-auto d-flex">
             <Select
-              name="sort"
+              name="repo"
               options={getSortOptions()}
               onChange={onChange}
-              value={sort}
+              value={`${sort} ${order}`}
             />
           </div>
-          {sort !== "match" ? (
-            <div className="ml-3">
-              <Select
-                name="order"
-                options={orderArr}
-                onChange={onOrderChange}
-                value={order}
-              />
-            </div>
-          ) : (
-            ""
-          )}
         </>
       ) : (
         ""
