@@ -1,21 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import SearchForm from "./common/searchForm";
-import { mountPoint } from "../config/pathname";
+import { mountPoint, repoSearch } from "../config/pathname";
 
-const Navbar = ({ onSearch }) => {
+const Navbar = () => {
+  const history = useHistory();
+
+  const handleSearch = async (query) => {
+    history.push(repoSearch.param(query, 1, 25, "", ""));
+  };
   return (
     <nav className="navbar navbar-light bg-light">
-      <Link to={mountPoint} className="navbar-brand font-weight-bold ml-5">
+      <Link to={mountPoint} className="navbar-brand font-weight-bold">
         Github
       </Link>
-      <div className="mr-5">
-        <SearchForm
-          label="Submit"
-          onSearch={onSearch}
-          placeholder="Find a Repo"
-        />
-      </div>
+      <SearchForm
+        label="Submit"
+        onSearch={handleSearch}
+        placeholder="Find a Repo"
+      />
     </nav>
   );
 };
