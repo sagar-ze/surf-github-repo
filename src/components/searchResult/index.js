@@ -25,6 +25,7 @@ const SearchResult = () => {
         const { q, page, per_page, sort, order } = getQueryParams(location);
         const { data } = await getRepositories(q, page, per_page, sort, order);
         setRepo(data);
+        if (error) setError("");
       } catch (ex) {
         setError(ex.message);
       }
@@ -38,13 +39,13 @@ const SearchResult = () => {
     const sortBy = result[0];
     const orderBy = result[1];
     const query = getQueryParams(location).q;
-    setSort(result[0]);
-    setOrder(result[1]);
+    setSort(sortBy);
+    setOrder(orderBy);
     history.push(repoSearch.param(query, page, rowsPerPage, sortBy, orderBy));
   };
 
   return (
-    <div className="searchResultContainer pl-4 pr-5 ">
+    <div className="searchResultContainer pl-2 pr-1 ">
       {loading ? (
         <div className="d-flex justify-content-center align-items-center mainContainer">
           <Spinner />
@@ -57,7 +58,7 @@ const SearchResult = () => {
             sort={sort}
             repo={repo}
           />
-          <div className="card-columns">
+          <div className="resultCardContainer">
             {repo?.items?.map((item) => (
               <React.Fragment key={item.id}>
                 <Card item={item} />

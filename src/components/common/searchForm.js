@@ -33,7 +33,7 @@ const SearchForm = ({ label, placeholder, onSearch }) => {
       />
       <button
         disabled={validate()}
-        className="btn btn-primary  my-2 my-sm-0"
+        className="btn btn-primary  my-md-2 "
         type="submit"
       >
         {label}
