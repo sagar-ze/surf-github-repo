@@ -1,12 +1,9 @@
 import React from "react";
 import Select from "../common/select";
-import { getSortOptions } from "../../services/sortOptions";
+import { getSortOptions,getRowPerPageOptions } from "../../services/sortOptions";
 
-const filterOptions = [
-  { id: 10, label: "10 repo per Page" },
-  { id: 15, label: "15 repo per Page" },
-  { id: 50, label: "50 repo per page" },
-];
+
+
 const SearchResultToolbar = ({
   repo,
   onChange,
@@ -15,7 +12,6 @@ const SearchResultToolbar = ({
   onRowPerPageSelect,
   rowPerPage,
 }) => {
-    console.log('Row per apge is',rowPerPage)
   return (
     <div className="row mt-3 ml-md-3 mr-md-3">
       {repo?.total_count ? (
@@ -33,7 +29,7 @@ const SearchResultToolbar = ({
             />
             <Select
               name="rowPerPage"
-              options={filterOptions}
+              options={getRowPerPageOptions()}
               onChange={onRowPerPageSelect}
               value={rowPerPage}
             />

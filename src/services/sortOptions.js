@@ -9,3 +9,11 @@ const sortOptions = [
 ];
 
 export const getSortOptions = () => sortOptions;
+
+const rowPerPageOptions = [
+  { id: 10, label: "10 repo per Page" },
+  { id: 15, label: "15 repo per Page" },
+  { id: 50, label: "50 repo per page" },
+];
+
+export const getRowPerPageOptions = () => rowPerPageOptions;

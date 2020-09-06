@@ -35,7 +35,7 @@ const SearchResult = () => {
       setLoading(false);
     }
     fetchRepo();
-  }, [location]);
+  }, [location, error]);
 
   const handlePageChange = (currPage) => {
     setPage(currPage);
@@ -78,7 +78,8 @@ const SearchResult = () => {
                 <Card item={item} />
               </React.Fragment>
             ))}
-
+          </div>
+          <div className="mr-5 mt-3 float-right">
             <Pagination
               itemsCount={repo.total_count}
               pageSize={rowsPerPage}
