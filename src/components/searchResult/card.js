@@ -17,18 +17,12 @@ const Card = ({ item }) => {
         <Link to={{ pathname: item.html_url }} target="_blank">
           <h5 className="card-title">{item.full_name}</h5>
         </Link>
-
-        {/* <Link to={{ pathname: item.owner.repos_url }} target="_blank"> */}
-
         <p className="card-subtitle mb-2 text-muted">
           Owned By:- {item.owner.login}
           <FontAwesomeIcon icon={faEye} className=" mr-1 ml-3 text-success" />
           {item.watchers_count.toLocaleString()}
         </p>
-
-        <p className="card-text  text-truncate overflow-hidden">
-          {item.description}
-        </p>
+        <p className="card-text  text-truncate ">{item.description}</p>
         <div className="d-flex">
           <Link to="#" className="card-link">
             <FontAwesomeIcon icon={faStar} className="text-dark mr-1" />
@@ -41,7 +35,6 @@ const Card = ({ item }) => {
             />
             {item.language}
           </p>
-
           <p className="ml-2">Updated {lastUpdated}</p>
           <p className="ml-3">
             <FontAwesomeIcon icon={faCodeBranch} /> {item.forks_count}
