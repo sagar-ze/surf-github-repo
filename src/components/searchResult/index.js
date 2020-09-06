@@ -52,7 +52,7 @@ const SearchResult = () => {
   };
 
   return (
-    <div className="container">
+    <div className="searchResultContainer pl-4 pr-5 ">
       {loading ? (
         <div className="d-flex justify-content-center align-items-center mainContainer">
           <Spinner />
@@ -66,11 +66,13 @@ const SearchResult = () => {
             sort={sort}
             repo={repo}
           />
-          {repo?.items?.map((item) => (
-            <React.Fragment key={item.id}>
-              <Card item={item} />
-            </React.Fragment>
-          ))}
+          <div className="card-columns">
+            {repo?.items?.map((item) => (
+              <React.Fragment key={item.id}>
+                <Card item={item} />
+              </React.Fragment>
+            ))}
+          </div>
         </>
       )}
       {error ? (

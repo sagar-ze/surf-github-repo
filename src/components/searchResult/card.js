@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const Card = ({ item }) => {
   return (
-    <div className="row justify-content-md-center m-2" key={item.id}>
-      <div className="col">
-        <div className="card border-left-0 border-right-0 border-top-0">
+    // <div className="row " key={item.id}>
+      // <div className="card-columns">
+        <div className="card ">
           <div className="card-body">
             <Link to={{ pathname: item.html_url }} target="_blank">
               <h5 className="card-title">{item.full_name}</h5>
@@ -30,8 +30,8 @@ const Card = ({ item }) => {
             </Link>
           </div>
         </div>
-      </div>
-    </div>
+      // </div>
+    // </div>
   );
 };
 
