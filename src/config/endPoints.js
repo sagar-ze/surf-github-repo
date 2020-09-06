@@ -1,1 +1,1 @@
-export const repoSearchEndpoint = "/search/repositories";
+export const searchEndpoint = "/search/repositories";

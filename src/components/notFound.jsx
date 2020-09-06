@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { mountPoint } from "../config/path";
+import { mountPoint } from "../config/pathname";
 
 const NotFound = () => {
   return (
