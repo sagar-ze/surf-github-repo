@@ -6,6 +6,7 @@ import { repoSearch } from "../../config/pathname";
 import Spinner from "../common/spinner";
 import Card from "./card";
 import SearchResultToolbar from "./toolbar";
+import Pagination from "../common/pagination";
 
 const SearchResult = () => {
   const history = useHistory();
@@ -14,7 +15,7 @@ const SearchResult = () => {
   const [repo, setRepo] = React.useState({});
   const [sort, setSort] = React.useState("match");
   const [order, setOrder] = React.useState("desc");
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
   const [error, setError] = React.useState("");
 
@@ -44,6 +45,12 @@ const SearchResult = () => {
     history.push(repoSearch.param(query, page, rowsPerPage, sortBy, orderBy));
   };
 
+  const handlePageChange = (currPage) => {
+    setPage(currPage);
+    const query = getQueryParams(location).q;
+    history.push(repoSearch.param(query, currPage, rowsPerPage, sort, order));
+  };
+
   return (
     <div className="searchResultContainer pl-2 pr-1 ">
       {loading ? (
@@ -64,6 +71,13 @@ const SearchResult = () => {
                 <Card item={item} />
               </React.Fragment>
             ))}
+
+            <Pagination
+              itemsCount={repo.total_count}
+              pageSize={rowsPerPage}
+              currentPage={page}
+              onPageChange={handlePageChange}
+            />
           </div>
         </>
       )}
