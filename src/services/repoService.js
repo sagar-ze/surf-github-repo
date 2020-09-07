@@ -7,3 +7,6 @@ export const fetchRepositories = (query, page, per_page, sort, order) =>
   );
 
 export const fetchRepoReadme = (path) => http.get(path);
+
+export const fetchRepoInfo = (owner, repo) =>
+  http.get(`${repoEndpoint}/${owner}/${repo}`);

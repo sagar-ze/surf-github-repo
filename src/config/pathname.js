@@ -13,8 +13,8 @@ export const repoSearch = {
 };
 
 export const repoDetail = {
-  path: "/repos/:id/:contents/:id",
-  param(repoName, readme) {
-    return `/repos/${repoName}/contents/${readme}`;
+  path: "/repos/:owner/:repo/:readme",
+  param(owner, readme) {
+    return `/repos/${owner}/contents/${readme}`;
   },
 };
