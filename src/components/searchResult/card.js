@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,6 @@ import {
 import { repoDetail } from "../../config/pathname";
 
 const Card = ({ item }) => {
-  const history = useHistory();
   const lastUpdated = moment(item.updated_at).startOf("hour").fromNow();
   const totalStars =
     item.stargazers_count > 100
@@ -23,7 +22,9 @@ const Card = ({ item }) => {
     <div className="card shadow">
       <div className="card-body">
         <Link to={repoDetail.param(item.full_name, "README.md")}>
-          <h5 className="card-title text-truncate cursor-pointer">{item.full_name}</h5>
+          <h5 className="card-title text-truncate cursor-pointer">
+            {item.full_name}
+          </h5>
         </Link>
         <p className="card-subtitle mb-2 text-muted">
           Owned By:- {item.owner.login}

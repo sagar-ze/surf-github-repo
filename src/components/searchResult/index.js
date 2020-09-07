@@ -59,12 +59,11 @@ const SearchResult = () => {
       setLoading(false);
     }
     fetchRepo();
-  }, [location, error]);
+  }, [location, error,options]);
 
   const handlePageChange = (currPage) => {
     const state = { ...options };
     state.page = currPage;
-    setOptions(state);
     pushHistory(query, state, history);
   };
 
@@ -73,14 +72,12 @@ const SearchResult = () => {
     const result = target.value.split(" ");
     state.order = result[1];
     state.sort = result[0];
-    setOptions(state);
     pushHistory(query, state, history);
   };
 
   const handleRowPerPageSelect = ({ target }) => {
     const state = { ...options };
     state.rowsPerPage = target.value;
-    setOptions(state);
     pushHistory(query, state, history);
   };
 

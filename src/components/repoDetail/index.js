@@ -4,14 +4,6 @@ import { fetchRepoReadme, fetchRepoInfo } from "../../services/repoService";
 import Markdown from "markdown-to-jsx";
 import RepoInfoList from "./repoInfoList";
 
-function LinkRenderer(props) {
-  return (
-    <a href={props.href} target="_blank">
-      {props.children}
-    </a>
-  );
-}
-
 const RepoDetail = () => {
   const location = useLocation();
   const params = useParams();
@@ -33,8 +25,10 @@ const RepoDetail = () => {
       }
     }
     fetchRepoDetail();
-  }, []);
-  console.log("Repo detail", repoDetail);
+  }, [location, params]);
+
+  console.log("Error geting run details", error);
+
   return (
     <div className="p-md-4 row m-0">
       {repoDetail ? (
@@ -45,10 +39,7 @@ const RepoDetail = () => {
           <div className="col-md-9">
             <div className="shadow-lg p-md-5">
               <p className="font-weight-bold text-info">README.md</p>
-              <Markdown
-                renderers={{ link: LinkRenderer }}
-                children={atob(readme)}
-              />
+              <Markdown children={atob(readme)} />
             </div>
           </div>
         </>
