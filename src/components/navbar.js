@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-dark bg-dark fixed-top p-0 pl-md-4 pr-md-4">
+    <nav className="navbar navbar-dark bg-dark fixed-top  pl-sm-5">
       <Link
         to={mountPoint}
         className="navbar-brand d-none d-sm-block font-weight-bold"

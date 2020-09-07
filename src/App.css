@@ -13,18 +13,23 @@ p {
   font-size: 0.9rem;
 }
 
-.mainContainer {
+.main-container {
   height: calc(100vh - 86px);
 }
 
-.searchResultContainer {
+.search-result-container {
   padding-top: 86px;
 }
 
-.resultCardContainer {
+@media screen and (max-width: 600px) {
+  .search-result-container {
+    padding-top: 100px;
+  }
+}
+.result-card-container {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
 }
 
 .rc-pagination {
@@ -34,4 +39,9 @@ p {
 .rc-pagination-next,
 .rc-pagination-prev {
   box-shadow: 0px 3px 5px 0px #ccc;
+}
+.card-bottom-row {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

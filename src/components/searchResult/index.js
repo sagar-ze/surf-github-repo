@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { getQueryParams } from "../../utils/searchQuery";
-import { getRepositories } from "../../services/repoSearchService";
+import { fetchRepositories } from "../../services/repoService";
 import { repoSearch } from "../../config/pathname";
 import Spinner from "../common/spinner";
 import Card from "./card";
@@ -14,10 +14,12 @@ const SearchResult = () => {
   const location = useLocation();
   const [loading, setLoading] = React.useState(false);
   const [repo, setRepo] = React.useState({});
-  const [sort, setSort] = React.useState("match");
-  const [order, setOrder] = React.useState("desc");
-  const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(15);
+  const [options, setOptions] = React.useState({
+    sort: "asc",
+    order: "desc",
+    page: 1,
+    rowsPerPage: 15,
+  });
   const [error, setError] = React.useState("");
 
   const query = getQueryParams(location).q;
@@ -27,9 +29,13 @@ const SearchResult = () => {
       setLoading(true);
       try {
         const { q, page, per_page, sort, order } = getQueryParams(location);
-        const { data } = await getRepositories(q, page, per_page, sort, order);
+        const { data } = await fetchRepositories(q,page,per_page,sort,order);
+        const state = { ...options };
+        state.sort = sort;
+        state.order = order;
+        state.rowsPerPage = per_page;
         setRepo(data);
-        if (error) setError("");
+        setOptions(state);
       } catch (ex) {
         setError(ex.message);
       }
@@ -39,28 +45,56 @@ const SearchResult = () => {
   }, [location, error]);
 
   const handlePageChange = (currPage) => {
-    setPage(currPage);
-    history.push(repoSearch.param(query, currPage, rowsPerPage, sort, order));
+    const state = { ...options };
+    state.page = currPage;
+    setOptions(state);
+    history.push(
+      repoSearch.param(
+        query,
+        state.page,
+        state.rowsPerPage,
+        state.sort,
+        state.order
+      )
+    );
   };
 
   const handleSortOptionsSelect = ({ target }) => {
+    const state = { ...options };
     const result = target.value.split(" ");
-    const sortBy = result[0];
-    const orderBy = result[1];
-    setSort(sortBy);
-    setOrder(orderBy);
-    history.push(repoSearch.param(query, page, rowsPerPage, sortBy, orderBy));
+    state.order = result[1];
+    state.sort = result[0];
+    setOptions(state);
+    history.push(
+      repoSearch.param(
+        query,
+        state.page,
+        state.rowsPerPage,
+        state.sort,
+        state.order
+      )
+    );
   };
 
   const handleRowPerPageSelect = ({ target }) => {
-    setRowsPerPage(target.value);
-    history.push(repoSearch.param(query, page, target.value, sort, order));
+    const state = { ...options };
+    state.rowsPerPage = target.value;
+    setOptions(state);
+    history.push(
+      repoSearch.param(
+        query,
+        state.page,
+        target.rowPerPage,
+        state.sort,
+        state.order
+      )
+    );
   };
 
   return (
-    <div className="searchResultContainer pl-2 pr-1 ">
+    <div className="search-result-container pl-2 pr-1 ">
       {loading ? (
-        <div className="d-flex justify-content-center align-items-center mainContainer">
+        <div className="d-flex justify-content-center align-items-center main-container">
           <Spinner />
         </div>
       ) : (
@@ -68,41 +102,33 @@ const SearchResult = () => {
           <SearchResultToolbar
             onChange={handleSortOptionsSelect}
             onRowPerPageSelect={handleRowPerPageSelect}
-            rowPerPage={rowsPerPage}
-            order={order}
-            sort={sort}
+            rowPerPage={options.rowsPerPage}
+            order={options.order}
+            sort={options.sort}
             repo={repo}
           />
-          <div className="resultCardContainer">
+
+          <div className="result-card-container m-md-3">
             {repo?.items?.map((item) => (
               <React.Fragment key={item.id}>
                 <Card item={item} />
               </React.Fragment>
             ))}
           </div>
+
           <div className="m-md-5 float-right">
             <Pagination
               showSizeChanger
-              defaultPageSize={rowsPerPage}
-              defaultCurrent={page}
+              defaultPageSize={options.rowsPerPage}
+              defaultCurrent={options.page}
               onChange={handlePageChange}
-              total={1000}
+              total={repo.total_count >= 1000 ? 1000 : repo.total_count}
             />
           </div>
 
-          {error || repo.items?.length === 0 ? (
-            <h4 className="d-flex justify-content-center align-items-center mainContainer">
-              {error ? (
-                <>
-                  You either tried some shady route or you came here by mistake.
-                  <br />
-                  Whichever it is,try using the navaigation
-                </>
-              ) : repo.items?.length === 0 ? (
-                "No repo found based on our query"
-              ) : (
-                ""
-              )}
+          {repo.items?.length === 0 ? (
+            <h4 className="d-flex justify-content-center align-items-center main-container">
+              No repo found based on your query
             </h4>
           ) : (
             ""

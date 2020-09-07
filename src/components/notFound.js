@@ -4,7 +4,7 @@ import { mountPoint } from "../config/pathname";
 
 const NotFound = () => {
   return (
-    <div className="page-wrap d-flex flex-row align-items-center mainContainer">
+    <div className="page-wrap d-flex flex-row align-items-center main-container">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-12 text-center">
