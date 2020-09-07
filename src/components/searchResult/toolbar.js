@@ -27,10 +27,10 @@ const SearchResultToolbar = ({
   rowPerPage,
 }) => {
   return (
-    <div className="row mt-3 ml-md-3 mr-md-3">
+    <div className="row  ml-md-3 mr-md-3">
       {repo?.total_count ? (
         <>
-          <h4 className="d-none d-sm-block">
+          <h4 className="text-truncate ml-2 mr-2">
             Showing {repo.total_count?.toLocaleString()} available repositary
             results
           </h4>

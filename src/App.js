@@ -1,5 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import * as pathname from "./config/pathname";
 import Navbar from "./components/navbar";
 
@@ -13,6 +15,16 @@ const RepoDetail = lazy(() => import("./components/repoDetail"));
 function App() {
   return (
     <>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={6000}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+       
+      />
       <Navbar />
       <main className="main-container">
         <Suspense fallback={<p className="align-middle">Loading....</p>}>

@@ -1,40 +1,43 @@
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { fetchRepoReadme, fetchRepoInfo } from "../../services/repoService";
 import Markdown from "markdown-to-jsx";
+import { toast } from "react-toastify";
+
+import { fetchRepoReadme, fetchRepoInfo } from "../../services/repoService";
 import RepoInfoList from "./repoInfoList";
+import Spinner from "../common/spinner";
 
 const RepoDetail = () => {
   const location = useLocation();
   const params = useParams();
+  const [loading, setLoading] = React.useState(false);
   const [readme, setReadme] = React.useState("");
-  const [repoDetail, setRepoDetail] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [repo, setRepo] = React.useState("");
 
   React.useEffect(() => {
-    async function fetchRepoDetail() {
+    async function fetchRepo() {
+      setLoading(true);
       try {
         const [readme, repoDetail] = await Promise.all([
           fetchRepoReadme(location.pathname),
           fetchRepoInfo(params.owner, params.repo),
         ]);
         setReadme(readme.data.content);
-        setRepoDetail(repoDetail.data);
+        setRepo(repoDetail.data);
       } catch (ex) {
-        setError(ex.message);
+        toast.error(ex.response.data.message);
       }
+      setLoading(false);
     }
-    fetchRepoDetail();
+    fetchRepo();
   }, [location, params]);
-
-  console.log("Error geting run details", error);
 
   return (
     <div className="p-md-4 row m-0">
-      {repoDetail ? (
+      {!loading ? (
         <>
           <div className="col-md-2">
-            <RepoInfoList repoDetail={repoDetail} />
+            <RepoInfoList repo={repo} />
           </div>
           <div className="col-md-9">
             <div className="shadow-lg p-md-5">
@@ -43,8 +46,12 @@ const RepoDetail = () => {
             </div>
           </div>
         </>
+      ) : loading ? (
+        <div className="m-auto mt-5">
+          <Spinner />
+        </div>
       ) : (
-        ""
+        "Please do not ty the shady routes"
       )}
     </div>
   );
