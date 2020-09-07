@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import SearchBox from "./searchBox";
 import { getQueryParams } from "../../utils/searchQuery";
 import { repoSearch, mountPoint } from "../../config/pathname";
@@ -40,6 +41,11 @@ const SearchForm = ({ label, placeholder, onSearch }) => {
       </button>
     </form>
   );
+};
+SearchForm.propTypes = {
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

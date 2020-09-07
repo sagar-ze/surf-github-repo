@@ -6,7 +6,8 @@ import { repoSearch } from "../../config/pathname";
 import Spinner from "../common/spinner";
 import Card from "./card";
 import SearchResultToolbar from "./toolbar";
-import Pagination from "../common/pagination";
+import Pagination from "rc-pagination";
+import "rc-pagination/assets/index.css";
 
 const SearchResult = () => {
   const history = useHistory();
@@ -79,24 +80,34 @@ const SearchResult = () => {
               </React.Fragment>
             ))}
           </div>
-          <div className="mr-5 mt-3 float-right">
+          <div className="m-md-5 float-right">
             <Pagination
-              itemsCount={repo.total_count}
-              pageSize={rowsPerPage}
-              currentPage={page}
-              onPageChange={handlePageChange}
+              showSizeChanger
+              defaultPageSize={rowsPerPage}
+              defaultCurrent={page}
+              onChange={handlePageChange}
+              total={1000}
             />
           </div>
+
+          {error || repo.items?.length === 0 ? (
+            <h4 className="d-flex justify-content-center align-items-center mainContainer">
+              {error ? (
+                <>
+                  You either tried some shady route or you came here by mistake.
+                  <br />
+                  Whichever it is,try using the navaigation
+                </>
+              ) : repo.items?.length === 0 ? (
+                "No repo found based on our query"
+              ) : (
+                ""
+              )}
+            </h4>
+          ) : (
+            ""
+          )}
         </>
-      )}
-      {error ? (
-        <h4 className="d-flex justify-content-center align-items-center mainContainer">
-          You either tried some shady route or you came here by mistake.
-          <br />
-          Whichever it is,try using the navaigation
-        </h4>
-      ) : (
-        ""
       )}
     </div>
   );

@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Select from "../common/select";
-import { getSortOptions,getRowPerPageOptions } from "../../services/sortOptions";
-
-
+import {
+  getSortOptions,
+  getRowPerPageOptions,
+} from "../../services/sortOptions";
 
 const SearchResultToolbar = ({
   repo,
@@ -40,6 +42,14 @@ const SearchResultToolbar = ({
       )}
     </div>
   );
+};
+SearchResultToolbar.propTypes = {
+  repo: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  order: PropTypes.string.isRequired,
+  sort: PropTypes.string.isRequired,
+  onRowPerPageSelect: PropTypes.func.isRequired,
+  rowPerPage: PropTypes.number.isRequired,
 };
 
 export default SearchResultToolbar;
