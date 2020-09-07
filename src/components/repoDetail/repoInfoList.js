@@ -10,7 +10,13 @@ import {
 const RepoInfoList = ({ repoDetail }) => {
   return (
     <ul class="list-group list-group-flush ">
+      <p className="font-weight-bold text-info mt-5">Repositary Details</p>
       <li class="list-group-item p-0 pb-2">
+        <p className="font-weight-bold "> {repoDetail.full_name}</p>
+        <p> {repoDetail.description}</p>
+      </li>
+      <li class="list-group-item p-0 pb-2 m-0">
+        <p className="font-weight-bold m-0">Owner</p>
         <Link
           to={{ pathname: repoDetail.html_url }}
           target="_blank"
@@ -21,6 +27,7 @@ const RepoInfoList = ({ repoDetail }) => {
         </Link>
       </li>
       <li class="list-group-item  p-0 pb-2">
+        <p className="font-weight-bold m-0">Repo Name</p>
         <Link
           to={{ pathname: repoDetail.html_url }}
           target="_blank"
@@ -31,6 +38,7 @@ const RepoInfoList = ({ repoDetail }) => {
         </Link>
       </li>
       <li class="list-group-item p-0 pb-2">
+        <p className="font-weight-bold m-0">Open Issues</p>
         <FontAwesomeIcon
           icon={faExclamationCircle}
           className="text-info mr-4"
@@ -38,6 +46,7 @@ const RepoInfoList = ({ repoDetail }) => {
         {repoDetail.open_issues_count}
       </li>
       <li class="list-group-item p-0 pb-2">
+        <p className="font-weight-bold m-0">Default Branch</p>
         <FontAwesomeIcon icon={faCodeBranch} className="text-primary mr-4" />
         {repoDetail.default_branch}
       </li>

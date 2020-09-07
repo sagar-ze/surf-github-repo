@@ -23,7 +23,7 @@ const Card = ({ item }) => {
     <div className="card shadow">
       <div className="card-body">
         <Link to={repoDetail.param(item.full_name, "README.md")}>
-          <h5 className="card-title text-truncate">{item.full_name}</h5>
+          <h5 className="card-title text-truncate cursor-pointer">{item.full_name}</h5>
         </Link>
         <p className="card-subtitle mb-2 text-muted">
           Owned By:- {item.owner.login}
@@ -32,10 +32,8 @@ const Card = ({ item }) => {
         </p>
         <p className="card-text text-truncate ">{item.description}</p>
         <div className="d-flex card-bottom-row">
-          <Link to="#" className="card-link">
-            <FontAwesomeIcon icon={faStar} className="text-dark mr-1" />
-            {totalStars}
-          </Link>
+          <FontAwesomeIcon icon={faStar} className="text-dark mr-1" />
+          <p className="text-info"> {totalStars}</p>
           <p className="d-none d-sm-block ">
             <FontAwesomeIcon
               icon={faCircle}
@@ -43,7 +41,7 @@ const Card = ({ item }) => {
             />
             {item.language}
           </p>
-          <p className="ml-2">Updated {lastUpdated}</p>
+          <p className="ml-2 text-info">Updated {lastUpdated}</p>
           <p className="ml-3">
             <FontAwesomeIcon icon={faCodeBranch} /> {item.forks_count}
           </p>
