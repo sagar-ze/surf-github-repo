@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,20 +9,28 @@ import {
   faCodeBranch,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
+import { repoDetail } from "../../config/pathname";
 
 const Card = ({ item }) => {
+  const history = useHistory();
   const lastUpdated = moment(item.updated_at).startOf("hour").fromNow();
   const totalStars =
     item.stargazers_count > 100
       ? `${(item.stargazers_count / 1000).toFixed(1)}K`
       : item.stargazers_count;
-  console.log("Item is", item);
+  console.log("item", item);
   return (
     <div className="card shadow">
       <div className="card-body">
-        <Link to={{ pathname: item.html_url }} target="_blank">
-          <h5 className="card-title text-truncate">{item.full_name}</h5>
-        </Link>
+        <h5
+          className="card-title text-truncate"
+          onClick={() =>
+            history.push(repoDetail.params(item.full_name, "README.md"))
+          }
+        >
+          {item.full_name}
+        </h5>
+
         <p className="card-subtitle mb-2 text-muted">
           Owned By:- {item.owner.login}
           <FontAwesomeIcon icon={faEye} className=" mr-1 ml-3 text-success" />

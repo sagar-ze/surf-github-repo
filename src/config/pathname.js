@@ -11,3 +11,10 @@ export const repoSearch = {
     };
   },
 };
+
+export const repoDetail = {
+  path: "/repos/:id/:contents/:id",
+  params(repoName, readme) {
+    return `/repos/${repoName}/contents/${readme}`;
+  },
+};

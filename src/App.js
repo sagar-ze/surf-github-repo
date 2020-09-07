@@ -8,6 +8,7 @@ import "./App.css";
 const HomePage = lazy(() => import("./components/homePage"));
 const NotFound = lazy(() => import("./components/notFound"));
 const SearchResult = lazy(() => import("./components/searchResult"));
+const RepoDetail = lazy(() => import("./components/repoDetail"));
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Switch>
             <Route exact path={pathname.mountPoint} component={HomePage} />
             <Route path={pathname.repoSearch.path} component={SearchResult} />
+            <Route path={pathname.repoDetail.path} component={RepoDetail} />
             <Route to={pathname.notFound} component={NotFound} />
             <Redirect to={pathname.notFound} />
           </Switch>

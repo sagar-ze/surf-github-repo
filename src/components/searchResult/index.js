@@ -9,6 +9,17 @@ import SearchResultToolbar from "./toolbar";
 import Pagination from "rc-pagination";
 import "rc-pagination/assets/index.css";
 
+const pushHistory = (query, state, history) =>
+  history.push(
+    repoSearch.param(
+      query,
+      state.page,
+      state.rowsPerPage,
+      state.sort,
+      state.order
+    )
+  );
+
 const SearchResult = () => {
   const history = useHistory();
   const location = useLocation();
@@ -29,11 +40,17 @@ const SearchResult = () => {
       setLoading(true);
       try {
         const { q, page, per_page, sort, order } = getQueryParams(location);
-        const { data } = await fetchRepositories(q,page,per_page,sort,order);
+        const { data } = await fetchRepositories(
+          q,
+          page,
+          per_page,
+          sort,
+          order
+        );
         const state = { ...options };
         state.sort = sort;
         state.order = order;
-        state.rowsPerPage = per_page;
+        state.rowsPerPage = parseInt(per_page);
         setRepo(data);
         setOptions(state);
       } catch (ex) {
@@ -48,15 +65,7 @@ const SearchResult = () => {
     const state = { ...options };
     state.page = currPage;
     setOptions(state);
-    history.push(
-      repoSearch.param(
-        query,
-        state.page,
-        state.rowsPerPage,
-        state.sort,
-        state.order
-      )
-    );
+    pushHistory(query, state, history);
   };
 
   const handleSortOptionsSelect = ({ target }) => {
@@ -65,30 +74,14 @@ const SearchResult = () => {
     state.order = result[1];
     state.sort = result[0];
     setOptions(state);
-    history.push(
-      repoSearch.param(
-        query,
-        state.page,
-        state.rowsPerPage,
-        state.sort,
-        state.order
-      )
-    );
+    pushHistory(query, state, history);
   };
 
   const handleRowPerPageSelect = ({ target }) => {
     const state = { ...options };
     state.rowsPerPage = target.value;
     setOptions(state);
-    history.push(
-      repoSearch.param(
-        query,
-        state.page,
-        target.rowPerPage,
-        state.sort,
-        state.order
-      )
-    );
+    pushHistory(query, state, history);
   };
 
   return (
