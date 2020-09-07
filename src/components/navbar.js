@@ -11,7 +11,9 @@ const Navbar = () => {
   const handleSearch = async (query) => {
     const page = 1;
     const { per_page, sort, order } = getQueryParams(location);
-    history.push(repoSearch.param(query.replace(/ /g,''), page, per_page, sort, order));
+    history.push(
+      repoSearch.param(query.replace(/ /g, ""), page, per_page, sort, order)
+    );
   };
 
   return (
@@ -22,11 +24,13 @@ const Navbar = () => {
       >
         Github
       </Link>
-      <SearchForm
-        label="Submit"
-        onSearch={handleSearch}
-        placeholder="Find a Repo"
-      />
+      <div className="d-flex flex-grow-1 justify-content-center" align="center">
+        <SearchForm
+          label="Submit"
+          onSearch={handleSearch}
+          placeholder="Find a Repo"
+        />
+      </div>
     </nav>
   );
 };

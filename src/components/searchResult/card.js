@@ -22,15 +22,9 @@ const Card = ({ item }) => {
   return (
     <div className="card shadow">
       <div className="card-body">
-        <h5
-          className="card-title text-truncate"
-          onClick={() =>
-            history.push(repoDetail.params(item.full_name, "README.md"))
-          }
-        >
-          {item.full_name}
-        </h5>
-
+        <Link to={repoDetail.param(item.full_name, "README.md")}>
+          <h5 className="card-title text-truncate">{item.full_name}</h5>
+        </Link>
         <p className="card-subtitle mb-2 text-muted">
           Owned By:- {item.owner.login}
           <FontAwesomeIcon icon={faEye} className=" mr-1 ml-3 text-success" />
