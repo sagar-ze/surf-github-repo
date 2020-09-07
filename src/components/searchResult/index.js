@@ -85,7 +85,7 @@ const SearchResult = () => {
   };
 
   return (
-    <div className="search-result-container pl-2 pr-1 ">
+    <div className="main-container pl-2 pr-1 ">
       {loading ? (
         <div className="d-flex justify-content-center align-items-center main-container">
           <Spinner />

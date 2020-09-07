@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className="mainContainer">
+      <main className="main-container">
         <Suspense fallback={<p className="align-middle">Loading....</p>}>
           <Switch>
             <Route exact path={pathname.mountPoint} component={HomePage} />

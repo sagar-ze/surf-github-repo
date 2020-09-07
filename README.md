@@ -6,7 +6,9 @@
 [Axios](https://github.com/axios/axios) <br/>
 [Bootstap](https://getbootstrap.com/) Only CSS<br/>
 [Moment.js](https://momentjs.com/)<br/>
-[Font Awasome React](https://fontawesome.com/how-to-use/on-the-web/using-with/react)
+[Font Awasome React](https://fontawesome.com/how-to-use/on-the-web/using-with/react)<br/>
+[React Markdown] (https://github.com/rexxars/react-markdown)<br/>
+[Lodash] (https://lodash.com/)
 
 ### `yarn start`
 
