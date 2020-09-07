@@ -6,6 +6,8 @@ import { repoSearch } from "../../config/pathname";
 import Spinner from "../common/spinner";
 import Card from "./card";
 import SearchResultToolbar from "./toolbar";
+import Pagination from "rc-pagination";
+import "rc-pagination/assets/index.css";
 
 const SearchResult = () => {
   const history = useHistory();
@@ -14,9 +16,11 @@ const SearchResult = () => {
   const [repo, setRepo] = React.useState({});
   const [sort, setSort] = React.useState("match");
   const [order, setOrder] = React.useState("desc");
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+  const [page, setPage] = React.useState(1);
+  const [rowsPerPage, setRowsPerPage] = React.useState(15);
   const [error, setError] = React.useState("");
+
+  const query = getQueryParams(location).q;
 
   React.useEffect(() => {
     async function fetchRepo() {
@@ -32,16 +36,25 @@ const SearchResult = () => {
       setLoading(false);
     }
     fetchRepo();
-  }, [location]);
+  }, [location, error]);
+
+  const handlePageChange = (currPage) => {
+    setPage(currPage);
+    history.push(repoSearch.param(query, currPage, rowsPerPage, sort, order));
+  };
 
   const handleSortOptionsSelect = ({ target }) => {
     const result = target.value.split(" ");
     const sortBy = result[0];
     const orderBy = result[1];
-    const query = getQueryParams(location).q;
     setSort(sortBy);
     setOrder(orderBy);
     history.push(repoSearch.param(query, page, rowsPerPage, sortBy, orderBy));
+  };
+
+  const handleRowPerPageSelect = ({ target }) => {
+    setRowsPerPage(target.value);
+    history.push(repoSearch.param(query, page, target.value, sort, order));
   };
 
   return (
@@ -54,6 +67,8 @@ const SearchResult = () => {
         <>
           <SearchResultToolbar
             onChange={handleSortOptionsSelect}
+            onRowPerPageSelect={handleRowPerPageSelect}
+            rowPerPage={rowsPerPage}
             order={order}
             sort={sort}
             repo={repo}
@@ -65,16 +80,34 @@ const SearchResult = () => {
               </React.Fragment>
             ))}
           </div>
+          <div className="m-md-5 float-right">
+            <Pagination
+              showSizeChanger
+              defaultPageSize={rowsPerPage}
+              defaultCurrent={page}
+              onChange={handlePageChange}
+              total={1000}
+            />
+          </div>
+
+          {error || repo.items?.length === 0 ? (
+            <h4 className="d-flex justify-content-center align-items-center mainContainer">
+              {error ? (
+                <>
+                  You either tried some shady route or you came here by mistake.
+                  <br />
+                  Whichever it is,try using the navaigation
+                </>
+              ) : repo.items?.length === 0 ? (
+                "No repo found based on our query"
+              ) : (
+                ""
+              )}
+            </h4>
+          ) : (
+            ""
+          )}
         </>
-      )}
-      {error ? (
-        <h4 className="d-flex justify-content-center align-items-center mainContainer">
-          You either tried some shady route or you came here by mistake.
-          <br />
-          Whichever it is,try using the navaigation
-        </h4>
-      ) : (
-        ""
       )}
     </div>
   );

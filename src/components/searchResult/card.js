@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
@@ -7,10 +9,10 @@ import {
   faCodeBranch,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
-import moment from "moment";
+
 const Card = ({ item }) => {
   const lastUpdated = moment(item.updated_at).startOf("hour").fromNow();
-  console.log(item);
+
   return (
     <div className="card shadow">
       <div className="card-body">
@@ -43,6 +45,10 @@ const Card = ({ item }) => {
       </div>
     </div>
   );
+};
+
+Card.propTypes = {
+  item: PropTypes.object.isRequired,
 };
 
 export default Card;

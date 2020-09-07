@@ -1,8 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import SearchBox from "./searchBox";
 import { getQueryParams } from "../../utils/searchQuery";
-import { repoSearch } from "../../config/pathname";
+import { repoSearch, mountPoint } from "../../config/pathname";
 
 const SearchForm = ({ label, placeholder, onSearch }) => {
   const location = useLocation();
@@ -12,7 +13,7 @@ const SearchForm = ({ label, placeholder, onSearch }) => {
     if (location.pathname === repoSearch.path) {
       const { q } = getQueryParams(location);
       setQuery(q);
-    }
+    } else if (location.pathname === mountPoint) setQuery("");
   }, [location]);
 
   const handleQueryChange = (value) => setQuery(value);
@@ -40,6 +41,11 @@ const SearchForm = ({ label, placeholder, onSearch }) => {
       </button>
     </form>
   );
+};
+SearchForm.propTypes = {
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

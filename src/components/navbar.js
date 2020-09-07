@@ -11,7 +11,7 @@ const Navbar = () => {
   const handleSearch = async (query) => {
     const page = 1;
     const { per_page, sort, order } = getQueryParams(location);
-    history.push(repoSearch.param(query, page, per_page, sort, order));
+    history.push(repoSearch.param(query.replace(/ /g,''), page, per_page, sort, order));
   };
 
   return (

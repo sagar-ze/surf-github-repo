@@ -8,7 +8,7 @@ export const getQueryParams = (location) => {
   return {
     q: query ? query : "",
     page: params.get("page"),
-    per_page: repoPerPage ? repoPerPage : 20,
+    per_page: repoPerPage ? repoPerPage : 15,
     sort: sortBy ? sortBy : "match",
     order: orderBy ? orderBy : "",
   };
