@@ -1,7 +1,8 @@
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { fetchRepoReadme, fetchRepoInfo } from "../../services/repoService";
-import Markdown from "react-markdown/with-html";
+// import Markdown from "react-markdown/with-html";
+import Markdown from 'markdown-to-jsx';
 import RepoInfoList from "./repoInfoList";
 
 function LinkRenderer(props) {
@@ -37,18 +38,25 @@ const RepoDetail = () => {
   console.log("Repo detail", repoDetail);
   return (
     <div className="p-md-4 row">
-      <div className="col-md-2">
-        <RepoInfoList repoDetail={repoDetail} />
-      </div>
-      <div className="col-md-9">
-        <div className="shadow-lg p-md-5">
-          <Markdown
-            source={atob(readme)}
-            escapeHtml={false}
-            renderers={{ link: LinkRenderer }}
-          />
-        </div>
-      </div>
+      {repoDetail ? (
+        <>
+          <div className="col-md-2">
+            <RepoInfoList repoDetail={repoDetail} />
+          </div>
+          <div className="col-md-9">
+            <div className="shadow-lg p-md-5">
+              <Markdown
+                // source={atob(readme)}
+                // escapeHtml={false}
+                 renderers={{ link: LinkRenderer }}
+                children={atob(readme)}
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

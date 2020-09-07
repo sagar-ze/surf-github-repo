@@ -18,7 +18,7 @@ const Card = ({ item }) => {
     item.stargazers_count > 100
       ? `${(item.stargazers_count / 1000).toFixed(1)}K`
       : item.stargazers_count;
-  console.log("item", item);
+
   return (
     <div className="card shadow">
       <div className="card-body">
