@@ -26,7 +26,7 @@ const Navbar = () => {
       </Link>
       <div className="d-flex flex-grow-1 justify-content-center" align="center">
         <SearchForm
-          label="Submit"
+          label="Search"
           onSearch={handleSearch}
           placeholder="Find a Repo"
         />
