@@ -12,6 +12,7 @@ import {
 import { repoDetail } from "../../config/pathname";
 
 const Card = ({ repo }) => {
+
   const lastUpdated = moment(repo.updated_at).startOf("hour").fromNow();
   const totalStars =
     repo.stargazers_count > 100

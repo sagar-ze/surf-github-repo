@@ -35,7 +35,6 @@ const SearchResultToolbar = ({
             results
           </h4>
           <div className="ml-auto d-flex">
-            
             <Select
               name="sort"
               options={sortOptions}

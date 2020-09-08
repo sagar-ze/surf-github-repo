@@ -6,7 +6,6 @@ import * as pathname from "./config/pathname";
 import Navbar from "./components/navbar";
 
 import "./scss/style.scss";
-import "./App.css";
 
 const HomePage = lazy(() => import("./components/homePage"));
 const NotFound = lazy(() => import("./components/notFound"));

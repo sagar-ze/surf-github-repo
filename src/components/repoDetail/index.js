@@ -4,7 +4,7 @@ import Markdown from "markdown-to-jsx";
 import { toast } from "react-toastify";
 
 import { fetchRepoReadme, fetchRepoInfo } from "../../services/repoService";
-import RepoInfoList from "./repoInfoList";
+import RepoInfo from "./repoInfo";
 import Spinner from "../common/spinner";
 
 const RepoDetail = () => {
@@ -12,7 +12,7 @@ const RepoDetail = () => {
   const params = useParams();
   const [loading, setLoading] = React.useState(false);
   const [readme, setReadme] = React.useState("");
-  const [repo, setRepo] = React.useState("");
+  const [repo, setRepo] = React.useState({});
 
   React.useEffect(() => {
     async function fetchRepo() {
@@ -33,14 +33,14 @@ const RepoDetail = () => {
   }, [location, params]);
 
   return (
-    <div className="p-md-4 row m-0 mt-2">
+    <div className="pl-2 pr-1 pt-md-5 row">
       {!loading ? (
         <>
           <div className="col-md-2">
-            <RepoInfoList repo={repo} />
+            <RepoInfo repo={repo} />
           </div>
           <div className="col-md-9">
-            <div className="shadow-lg p-md-5 readme-container ">
+            <div className="shadow-lg p-md-5 readme-container overflow-hidden">
               <p className="font-weight-bold text-info">README.md</p>
               <Markdown children={atob(readme)} />
             </div>
