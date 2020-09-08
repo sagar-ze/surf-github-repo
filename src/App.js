@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import * as pathname from "./config/pathname";
 import Navbar from "./components/navbar";
 
+import "./scss/style.scss";
 import "./App.css";
 
 const HomePage = lazy(() => import("./components/homePage"));
@@ -23,7 +24,6 @@ function App() {
         rtl={false}
         pauseOnFocusLoss
         draggable={false}
-       
       />
       <Navbar />
       <main className="main-container">

@@ -19,7 +19,7 @@ const Card = ({ repo }) => {
       : repo.stargazers_count;
 
   return (
-    <div className="card shadow">
+    <div className="card">
       <div className="card-body">
         <Link to={repoDetail.param(repo.full_name, "README.md")}>
           <h5 className="card-title text-truncate cursor-pointer">

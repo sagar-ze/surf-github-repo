@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Select = ({ name, options, ...rest }) => {
   return (
-    <div className="form-group">
+    <div className="form-group ml-2">
       <select name={name} id={name} {...rest} className="form-control ">
         {options.map((option) => (
           <option key={option.id} value={option.id}>

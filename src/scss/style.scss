@@ -1,0 +1,20 @@
+@import "./searchResult.scss";
+@import "./readme.scss";
+
+.main-container {
+  padding-top: 50px;
+  height: calc(100vh - 86px);
+}
+@media screen and (max-width: 600px) {
+  .main-container {
+    padding-top: 120px;
+  }
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.card-bottom-row {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

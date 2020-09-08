@@ -30,11 +30,12 @@ const SearchResultToolbar = ({
     <div className="row  ml-md-3 mr-md-3">
       {repo?.total_count ? (
         <>
-          <h4 className="text-truncate ml-2 mr-2">
+          <h4 className="text-truncate ml-1 mr-2">
             Showing {repo.total_count?.toLocaleString()} available repositary
             results
           </h4>
           <div className="ml-auto d-flex">
+            
             <Select
               name="sort"
               options={sortOptions}

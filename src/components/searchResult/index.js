@@ -78,7 +78,7 @@ const SearchResult = () => {
   };
 
   return (
-    <div className="pl-2 pr-1 pt-5">
+    <div className="pl-2 pr-1 pt-md-5">
       {loading ? (
         <div className="d-flex justify-content-center align-items-center ">
           <Spinner />
@@ -102,7 +102,7 @@ const SearchResult = () => {
             ))}
           </div>
 
-          <div className="m-md-5 float-right">
+          <div className="mt-md-2 mb-md-5 float-right">
             {repo.total_count > options.rowsPerPage ? (
               <Pagination
                 showSizeChanger
